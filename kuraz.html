@@ -5,17 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Task Manager</title>
-    <!-- Tailwind CSS for quick and clean styling -->
+
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-    <!-- Main container -->
+
     <div class="bg-white p-6 rounded shadow-md w-full max-w-md">
         <h1 class="text-2xl font-bold mb-4 text-center">📝 Task Manager</h1>
 
-        <!-- Input area to add new tasks -->
         <div class="mb-4 flex">
             <input id="new-task" type="text" placeholder="Enter a new task" class="flex-1 p-2 border rounded-l" />
             <button onclick="addTask()" class="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600">
@@ -23,31 +22,31 @@
             </button>
         </div>
 
-        <!-- Where the task list will appear -->
+
         <ul id="task-list" class="space-y-2"></ul>
     </div>
 
     <script>
-        // Start with a few hardcoded tasks
+
         const tasks = [
             { id: 1, title: 'Buy groceries', completed: false },
             { id: 2, title: 'Read a book', completed: true }
         ];
 
-        // Reference to the <ul> where tasks are displayed
+
         const taskList = document.getElementById('task-list');
 
-        // Function to display all tasks on the screen
+
         function renderTasks() {
-            // Clear current list before re-rendering
+
             taskList.innerHTML = '';
 
-            // Loop through each task and create a list item
+
             tasks.forEach(task => {
                 const li = document.createElement('li');
                 li.className = 'flex items-center justify-between p-2 border rounded bg-gray-50';
 
-                // Apply strikethrough style if task is completed
+
                 li.innerHTML = `
           <span class="${task.completed ? 'line-through text-gray-500' : ''}">
             ${task.title}
@@ -69,48 +68,38 @@
             });
         }
 
-        // Add a new task to the list
         function addTask() {
             const input = document.getElementById('new-task');
-            const title = input.value.trim(); // Get rid of leading/trailing spaces
+            const title = input.value.trim();
 
             if (title) {
-                // Create a new task with a unique ID
+
                 tasks.push({
                     id: Date.now(),
                     title,
                     completed: false
                 });
 
-                input.value = ''; // Clear the input box
-                renderTasks();    // Show the updated list
+                input.value = '';
+                renderTasks();
             }
         }
-
-        // Mark a task as done or undo it
         function toggleTask(id) {
             const task = tasks.find(t => t.id === id);
             if (task) {
-                task.completed = !task.completed; // Flip the completed status
+                task.completed = !task.completed;
                 renderTasks();
             }
         }
-
-        // Delete a task by its ID
         function deleteTask(id) {
             const index = tasks.findIndex(t => t.id === id);
             if (index !== -1) {
-                tasks.splice(index, 1); // Remove the task from the array
+                tasks.splice(index, 1);
                 renderTasks();
             }
         }
-
-        // Show the initial list when the page loads
         renderTasks();
     </script>
 </body>
 
 </html>
-
-
-
